@@ -20,28 +20,33 @@ class _MusicScreenState extends State<MusicScreen> {
     providerW = context.watch<MusicProvider>();
     return Column(
       children: [
-        CarouselSlider.builder(
-          options: CarouselOptions(
-            height: 180,
-            autoPlay: true,
-            enlargeCenterPage: false,
-            initialPage: 0,
-            viewportFraction: 0.8,
-            onPageChanged: (index, reason) {
+       // SizedBox(height: 10,),
+        SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.3,
+          width: MediaQuery.sizeOf(context).width,
+          child: CarouselSlider.builder(
+            options: CarouselOptions(
+              height: 180,
+              autoPlay: true,
+              enlargeCenterPage: false,
+              initialPage: 0,
+              viewportFraction: 0.8,
+              onPageChanged: (index, reason) {
+                providerR!.changeIndex(index);
+              },
+            ),
+            itemCount: providerR!.musicModelList.length,
+            itemBuilder: (context, index, realIndex) => InkWell(onTap: (){
               providerR!.changeIndex(index);
+              Navigator.pushNamed(context, 'music');
             },
-          ),
-          itemCount: providerR!.musicModelList.length,
-          itemBuilder: (context, index, realIndex) => InkWell(onTap: (){
-            providerR!.changeIndex(index);
-            Navigator.pushNamed(context, 'music');
-          },
 
-            child: Image.asset(
-                "${providerW!.musicModelList[index].image}",
-                fit: BoxFit.cover,
-                height: 200,
-                width: 200),
+              child: Image.asset(
+                  "${providerW!.musicModelList[index].image}",
+                  fit: BoxFit.cover,
+                  height: 200,
+                  width: 200),
+            ),
           ),
         ),
         const SizedBox(height: 5,),
@@ -61,7 +66,7 @@ class _MusicScreenState extends State<MusicScreen> {
                 Navigator.pushNamed(context, 'music');
               },
               child: Container(
-                height: 65,
+                height: 50,
                 margin: const EdgeInsets.all(15),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
@@ -69,18 +74,20 @@ class _MusicScreenState extends State<MusicScreen> {
                 child: Row(
                   children: [
                     Container(
+                      height: 170,
+                      width: 80,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
+                        borderRadius: BorderRadius.circular(10),color: Colors.green,
+                          image: DecorationImage(image: AssetImage("${providerW!.musicModelList[index].image}"),fit: BoxFit.fill,)
                       ),
-                      child: Image.asset("${providerW!.musicModelList[index].image}",
-                          height: 200, fit: BoxFit.cover),
+                    //  child: Image.asset("${providerW!.musicModelList[index].image}",fit: BoxFit.contain,),
                     ),
                     const SizedBox(
                       width: 10,
                     ),
                     Text(
                       "${providerW!.musicModelList[index].name}",
-                      style: const TextStyle(fontSize: 20, color: Colors.white),
+                      style: const TextStyle(fontSize: 18, color: Colors.white),
                     ),
                   ],
                 ),

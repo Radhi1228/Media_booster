@@ -1,11 +1,8 @@
 import 'dart:math';
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:media_player/screen/music/provider/music_provider.dart';
 import 'package:provider/provider.dart';
-
-import '../model/music_model.dart';
 
 class MusicPlayerScreen extends StatefulWidget {
   const MusicPlayerScreen({super.key});
@@ -32,8 +29,8 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-          title: Text("${providerW!.musicModelList[providerW!.index].name}"),
-          backgroundColor: Colors.blue),
+          title: Text("${providerW!.musicModelList[providerW!.index].name}",style: TextStyle(color: Colors.white),),
+          backgroundColor: Colors.black),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -100,13 +97,13 @@ class _MusicPlayerScreenState extends State<MusicPlayerScreen> {
                               if(providerW!.isPlay)
                                 {
                                   providerR!.assetsAudioPlayer.pause();
-                                  providerR!.changeButton(false);
+                                  providerR!.changeButton();
 
                                 }
                               else
                                 {
                                   providerR!.assetsAudioPlayer.play();
-                                  providerR!.changeButton(true);
+                                  providerR!.changeButton();
                                 }
 
                             },

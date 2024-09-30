@@ -19,28 +19,32 @@ class _VideoScreenState extends State<VideoScreen> {
     providerW = context.watch<VideoProvider>();
     return Column(
       children: [
-        CarouselSlider.builder(
-          options: CarouselOptions(
-            height: 200,
-            autoPlay: true,
-            enlargeCenterPage: false,
-            initialPage: 0,
-            viewportFraction: 0.8,
-            onPageChanged: (index, reason) {
+        SizedBox(
+          height: MediaQuery.sizeOf(context).height*0.3,
+          width: MediaQuery.sizeOf(context).width,
+          child: CarouselSlider.builder(
+            options: CarouselOptions(
+              height: 200,
+              autoPlay: true,
+              enlargeCenterPage: false,
+              initialPage: 0,
+              viewportFraction: 0.8,
+              onPageChanged: (index, reason) {
+                providerR!.changeIndexV(index);
+              },
+            ),
+            itemCount: providerR!.videoModelList.length,
+            itemBuilder: (context, index, realIndex) => InkWell(onTap: (){
               providerR!.changeIndexV(index);
+              Navigator.pushNamed(context, 'video');
             },
-          ),
-          itemCount: providerR!.videoModelList.length,
-          itemBuilder: (context, index, realIndex) => InkWell(onTap: (){
-            providerR!.changeIndexV(index);
-            Navigator.pushNamed(context, 'video');
-          },
 
-            child: Image.asset(
-                "${providerW!.videoModelList[index].image}",
-                fit: BoxFit.cover,
-                height: 200,
-                width: 200),
+              child: Image.asset(
+                  "${providerW!.videoModelList[index].image}",
+                  fit: BoxFit.cover,
+                  height: 200,
+                  width: 200),
+            ),
           ),
         ),
         SizedBox(height: 5,),

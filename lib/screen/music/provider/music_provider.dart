@@ -7,6 +7,7 @@ class MusicProvider with ChangeNotifier {
   Duration totalDuration = const Duration(seconds: 0);
   AssetsAudioPlayer assetsAudioPlayer = AssetsAudioPlayer();
   int index=0;
+  bool isPlay = true;
 
   void changeIndex(int i)
   {
@@ -14,25 +15,27 @@ class MusicProvider with ChangeNotifier {
     notifyListeners();
   }
 
-
   Future<void> initMusic() async {
     await assetsAudioPlayer.open(
       Playlist(
+          startIndex: index,
         audios: musicModelList.map((e) => Audio.network(e.link!)).toList(),
-        startIndex: index
+
       ),
+      loopMode: LoopMode.playlist,
       autoStart: false,
       showNotification: true,
     );
     totalDuration = assetsAudioPlayer.current.value!.audio.duration;
-    notifyListeners();
+    // notifyListeners();
   }
 
-  bool isPlay = true;
 
-  void changeButton(bool play)
+  void changeButton()
   {
-    isPlay = play;
+    print("========= on1${isPlay}");
+    isPlay = !isPlay;
+    print("========= on${isPlay}");
     notifyListeners();
   }
 
@@ -66,4 +69,22 @@ class MusicProvider with ChangeNotifier {
       }
     notifyListeners();
   }
+
+  void playAndPause()
+  {
+
+
+    if(isPlay)
+      {
+        assetsAudioPlayer.pause();
+      }
+    else
+      {
+        assetsAudioPlayer.play();
+      }
+    isPlay = !isPlay;
+
+    notifyListeners();
+
+}
 }

@@ -27,7 +27,7 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
     providerW = context.watch<VideoProvider>();
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(title: Text("Video"), backgroundColor: Colors.blue),
+      appBar: AppBar(title: const Text("Video",style: TextStyle(color: Colors.white),), backgroundColor: Colors.black),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -35,19 +35,19 @@ class _VideoPlayerScreenState extends State<VideoPlayerScreen> {
               height: 200,
               child: Chewie(controller: providerW!.chewieController!)),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                     "Name: ${providerW!.videoModelList[providerW!.videoIndex].name}",
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,
                         color: Colors.white)),
                 Text(
                     "Description: ${providerW!.videoModelList[providerW!.videoIndex].description}",
-                    style: TextStyle(fontSize: 20, color: Colors.white)),
+                    style: const TextStyle(fontSize: 18, color: Colors.white)),
               ],
             ),
           ),
